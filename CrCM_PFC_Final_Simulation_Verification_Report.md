@@ -21,10 +21,10 @@
 ## 2. Data sources and cross-check
 
 - The uploaded archive contains **14 primary stress CSV files** and **12 charge-balanced companion CSV files**.
-- Every requested startup and steady-state case is present. The archive also contains an extra `230 V, 50 Hz, full-load` case, which is not included in the requested main report.
+- Every requested startup and steady-state case is present. The uploaded `230 V, 50 Hz, full-load` case is also included because 230 V / 50 Hz is a common nominal mains condition outside North America.
 - Stress values in the CSVs were checked against the latest command-window outputs retained in this conversation. The compared values match to the displayed rounding.
 - The PF/efficiency script did not export CSV files. Those results are taken from the console outputs previously pasted in this conversation.
-- The standalone 120 V and 240 V full-load PF/efficiency values were available only in rounded retained summaries; they are marked with `≈`. Final-controller full-load behavior is independently confirmed by the refreshed 90 V and 264 V corner runs and by the 120 V post-step 100% window.
+- The standalone 120 V, 230 V, and 240 V full-load PF/efficiency values were available only in rounded retained summaries; they are marked with `≈`. The 230 V output-power estimate is calculated from the uploaded Vout RMS value and the 1600 Ω load. Final-controller full-load behavior is independently confirmed by the refreshed 90 V and 264 V corner runs and by the 120 V post-step 100% window.
 - Post-step CSV files contain the final steady-state window only. Transient extrema were taken from the plotted waveforms or separately measured cursor values.
 
 ## 3. Startup verification
@@ -50,6 +50,7 @@ Startup notes:
 | 120 V, 60 Hz, 20% | 0.988762 | 0.988796 | 20.733796 | 19.999973 | 96.460739 | 399.999904 | 1.014453 | 0.003260 | PASS |
 | 120 V, 60 Hz, no load | 0.254480† | 0.254663† | 0.142856 | 0.000161 | 0.112683† | 401.216366 | 0.015204 | -0.007602 | N/A |
 | 120 V, 20→100%, post-step | 0.999733 | 0.999745 | 102.775838 | 99.999214 | 97.298369 | 399.998947 | 3.668139 | 0.000740 | PASS |
+| 230 V, 50 Hz, 100% | ≈0.994517 | — | — | ≈99.832 | ≈98.1975 | 399.660414 | 4.318092 | — | PASS |
 | 240 V, 60 Hz, 100% | ≈0.993675 | — | — | ≈99.9 | ≈98.2154 | 399.763 | 3.625 | — | PASS |
 | 240 V, 60 Hz, 20% | 0.916414 | 0.920139 | 20.961356 | 19.998291 | 95.405522 | 399.983023 | 1.417310 | 0.018598 | PF FAIL / Eff PASS |
 | 240 V, 60 Hz, no load | 0.255923† | 0.256105† | 0.574888 | 0.000162 | 0.028114† | 402.023149 | 0.010334 | -0.005167 | N/A |
@@ -57,6 +58,8 @@ Startup notes:
 | 264 V, 60 Hz, 100% | 0.991258 | 0.991458 | 101.932788 | 100.004335 | 98.108113 | 400.008095 | 4.169157 | -0.014993 | PASS |
 
 † At no load, PF and efficiency are reported only as raw numerical outputs. They are not meaningful compliance metrics because output power is essentially zero.
+
+The 230 V / 50 Hz row uses the uploaded stress CSV for voltage, ripple, and component stress. Its PF, efficiency, and timing values are from the rounded simulation summary retained in this conversation.
 
 ## 5. Steady-state component stress from uploaded CSVs
 
@@ -68,6 +71,7 @@ Startup notes:
 | 120 V, 60 Hz, 20% | 0.17475 | 0.69792 | 0.63501 | 400.56752 | 399.55306 | 401.32691 | 400.42269 | 175.60284 |
 | 120 V, 60 Hz, no load | 0.00468 | 0.00168 | 0.00169 | 401.22397 | 401.20876 | 168.50877 | 400.82394 | 169.10944 |
 | 120 V, 20→100%, post-step | 0.85669 | 2.50517 | 2.44452 | 402.02698 | 398.35708 | 403.21128 | 401.47803 | 178.99324 |
+| 230 V, 50 Hz, 100% | 0.44445 | 1.34250 | 1.22140 | 401.87916 | 397.56106 | 402.79080 | 401.58433 | 330.44040 |
 | 240 V, 60 Hz, 100% | 0.42643 | 1.27519 | 1.14857 | 401.63836 | 398.01342 | 402.52184 | 401.36540 | 344.97559 |
 | 240 V, 60 Hz, 20% | 0.09531 | 0.50542 | 0.46255 | 400.75687 | 399.33955 | 401.45267 | 400.66218 | 346.34658 |
 | 240 V, 60 Hz, no load | 0.00936 | 0.00338 | 0.00339 | 402.02832 | 402.01798 | 338.21760 | 401.62749 | 338.81895 |
@@ -84,6 +88,7 @@ Startup notes:
 | 120 V, 60 Hz, 20% | 0.897 | 476.190 | 476.190 |
 | 120 V, 60 Hz, no load | 0.200 command | No pulses | No pulses |
 | 120 V, 20→100%, post-step | 3.699 | 186.667 | 256.410 |
+| 230 V, 50 Hz, 100% | ≈0.899 | ≈356.516 | 476.190 |
 | 240 V, 60 Hz, 100% | ≈0.806 | ≈351.146 | 476.190 |
 | 240 V, 60 Hz, 20% | 0.200 | 474.218 | 476.190 |
 | 240 V, 60 Hz, no load | 0.200 command | No pulses | No pulses |
@@ -118,6 +123,7 @@ Charge-balanced companion CSVs were present for every steady-state run. They cor
 | 120 V, 60 Hz, 20% | 0.141574 | 0.150154 |
 | 120 V, 60 Hz, no load | 0.000001 | 0.000003 |
 | 120 V, 20→100%, post-step | 0.555001 | 0.608806 |
+| 230 V, 50 Hz, 100% | 0.364922 | 0.442288 |
 | 240 V, 60 Hz, 100% | 0.352420 | 0.432060 |
 | 240 V, 60 Hz, 20% | 0.103390 | 0.114878 |
 | 240 V, 60 Hz, no load | 0.000001 | 0.000002 |
@@ -129,7 +135,7 @@ Charge-balanced companion CSVs were present for every steady-state run. They cor
 | Requirement | Final assessment |
 |---|---|
 | 400 V regulation | Pass across all tested loaded operating points; no-load bus remained bounded at approximately 401–402 V |
-| PF > 0.95 at rated load | Pass at both refreshed full-load corners: 0.999664 at 90 V and 0.991258 at 264 V |
+| PF > 0.95 at rated load | Pass at the refreshed full-load corners and the common 230 V / 50 Hz nominal point: 0.999664 at 90 V, approximately 0.994517 at 230 V, and 0.991258 at 264 V |
 | Efficiency > 92% | Pass for every loaded steady-state case tested |
 | Startup protection | Pass with documented brief low-line sampled OCP event; high-line passive inrush is outside the MOSFET OCP path |
 | OVP behavior | Pass; no normal-regulation OVP cycling after the controller fixes |
@@ -139,7 +145,7 @@ Charge-balanced companion CSVs were present for every steady-state run. They cor
 
 ## 10. Final conclusion
 
-The final CrCM boost PFC simulation meets the 400 V, 100 W regulation target and passes the PF and modeled-efficiency requirements at the refreshed low-line and high-line full-load corners. Startup, no-load, reduced-load, protection, maximum-frequency, minimum-pulse, and load-step behaviors were verified.
+The final CrCM boost PFC simulation meets the 400 V, 100 W regulation target and passes the PF and modeled-efficiency requirements at the refreshed low-line and high-line full-load corners, as well as at the common 230 V / 50 Hz nominal mains point. Startup, no-load, reduced-load, protection, maximum-frequency, minimum-pulse, and load-step behaviors were verified.
 
 The only documented performance exception is PF below 0.95 at 240 V and 20% load. Regulation and modeled efficiency still pass at that point. The limitation is associated with the 0.2 µs minimum on-time and the approximately 476 kHz realized switching-frequency ceiling.
 
@@ -159,6 +165,8 @@ The modeled efficiencies exclude switching loss, gate-drive loss, magnetic core 
 - `pfc_component_stress_steady_120V_60Hz_noload_charge_balanced.csv`
 - `pfc_component_stress_steady_120V_60Hz_step20to100_post.csv`
 - `pfc_component_stress_steady_120V_60Hz_step20to100_post_charge_balanced.csv`
+- `pfc_component_stress_steady_230V_50Hz_full.csv`
+- `pfc_component_stress_steady_230V_50Hz_full_charge_balanced.csv`
 - `pfc_component_stress_steady_240V_60Hz_20pct.csv`
 - `pfc_component_stress_steady_240V_60Hz_20pct_charge_balanced.csv`
 - `pfc_component_stress_steady_240V_60Hz_full.csv`
@@ -171,5 +179,3 @@ The modeled efficiencies exclude switching loss, gate-drive loss, magnetic core 
 - `pfc_component_stress_steady_264V_60Hz_full_charge_balanced.csv`
 - `pfc_component_stress_steady_90V_50Hz_full.csv`
 - `pfc_component_stress_steady_90V_50Hz_full_charge_balanced.csv`
-
-The uploaded `230 V, 50 Hz, full-load` CSV pair was found and validated but omitted from the main tables because it was not part of the requested report matrix.
