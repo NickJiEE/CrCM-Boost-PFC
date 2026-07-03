@@ -340,10 +340,7 @@ OVP and OCP remained inactive in the final rated-load steady-state measurement w
 
 
 <p align="center">
-  <img src="figures/min_pulse_vout_240V_20pct.png" alt="240 V 20 percent load Vout" width="49%">
-  <img src="figures/min_pulse_ton_request.png" alt="Minimum-pulse Ton request" width="49%">
-  <img src="figures/min_pulse_demand_enable.png" alt="TonDemandEnable hysteresis" width="49%">
-  <img src="figures/min_pulse_gate_cmd.png" alt="Gate command" width="49%">
+  <img src="figures/240v_60hz_20pct_plots.png" alt="240 V 20% load Vout, Minimum-pulse Ton CMD, Ton Demand EN hysteresis, and Gate CMD" width="100%">
 </p>
 <p align="center">
   <em>Figure 6. Minimum-pulse and demand-enable behavior at 240 V, 20% load. The requested on-time approaches the minimum region while the hysteretic demand-enable logic prevents invalid subminimum switching pulses.</em>
