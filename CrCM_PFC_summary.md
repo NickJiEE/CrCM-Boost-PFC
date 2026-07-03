@@ -444,8 +444,7 @@ Startup completed:                  yes
 
 
 <p align="center">
-  <img src="figures/load_step_120V_vout.png" alt="120 V 20 to 100 percent load-step Vout" width="49%">
-  <img src="figures/load_step_120V_ton_cmd.png" alt="120 V load-step Ton command" width="49%">
+  <img src="figures/120v_60hz_step_plots.png" alt="120V / 60 Hz 20% to 100% load-step Vout and Ton CMD" width="100%">
 </p>
 <p align="center">
   <em>Figure 7. 120 V, 20% → 100% load-step response. Vout exhibits a controlled undershoot and the on-time command moves from the light-load value to the full-load value.</em>
@@ -453,7 +452,7 @@ Startup completed:                  yes
 
 
 <p align="center">
-  <img src="figures/load_step_240V_vout.png" alt="240 V 100 to 20 percent load-step Vout" width="92%">
+  <img src="figures/240v_60hz_step_plots.png" alt="240V / 60 Hz 100% to 20% load-step Vout and Ton CMD" width="100%">
 </p>
 <p align="center">
   <em>Figure 8. 240 V, 100% → 20% load-step response. The output-voltage overshoot remains below the 420 V OVP threshold and returns to the regulated operating point.</em>
