@@ -4,14 +4,11 @@ A universal-input, single-phase boost power-factor-correction converter develope
 
 The converter operates in critical conduction mode, also called transition mode or boundary conduction mode. In this mode, the boost-inductor current returns to approximately zero before the next switching cycle begins. This reduces reverse-recovery stress and provides natural cycle-by-cycle current shaping, but results in a variable switching frequency.
 
-<!-- Replace the path below with a final top-level model screenshot when available. -->
-<!--
 <p align="center">
-  <img src="figures/final_pfc_model.png"
+  <img src="figures/pfc.png"
        alt="Final CrCM boost PFC Simulink model"
-       width="90%">
+       width="100%">
 </p>
--->
 
 ---
 
@@ -307,8 +304,8 @@ PF = 0.916414 at 240 V, 20% load
 
 ## Documentation
 
-- [Detailed project summary](CrCM_PFC_summary_with_HTML_figures.md)
-- [Final simulation verification report](CrCM_PFC_Final_Simulation_Verification_Report_with_230V.md)
+- [Detailed project summary](CrCM_PFC_summary.md)
+- [Final simulation verification report](CrCM_PFC_Final_Simulation_Verification_Report.md)
 
 ---
 
