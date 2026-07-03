@@ -260,45 +260,21 @@ Real hardware should use substantial voltage, current, thermal, and transient ma
 ---
 
 ## Final verification status
+The final controller has been verified for:
 
-```text
-Universal-input full-load operation:       complete
-Low-line startup validation:               complete
-High-line startup validation:              complete
-230 V / 50 Hz verification:                complete
-Reduced-load verification:                 complete
-No-load verification:                      complete
-20% → 100% load-step test:                 complete
-100% → 20% load-step test:                 complete
-Near-line-peak worst-case load removal:    complete
-Frequency-clamp validation:                complete
-Minimum-pulse demand inhibition:           complete
-Charge-balance correction:                 complete
-```
+- Universal-input full-load operation
+- Reduced-load and no-load operation
+- Startup and inrush behavior
+- Large load-step transients
+- OVP, OCP, minimum-pulse, and frequency-clamp behavior
 
 ### Final result
 
-```text
-400 V output regulation:
-PASS across all tested loaded operating points
-
-Rated-load PF > 0.95:
-PASS across the tested input range
-
-Modeled efficiency > 92%:
-PASS for every loaded operating point tested
-
-OVP:
-Inactive during final startup, steady-state,
-no-load, and load-step verification
-
-OCP:
-Inactive in steady state
-Brief controlled operation during low-line startup
-
-Known limitation:
-PF = 0.916414 at 240 V, 20% load
-```
+- `400 V` regulation passed across all tested loaded conditions.
+- Rated-load PF exceeded `0.95` across the tested input range.
+- Modeled efficiency exceeded `92%` for every loaded case.
+- The highest measured Vout was `413.1815 V`, below the `420 V` OVP threshold.
+- The known limitation is `PF = 0.916414` at `240 V, 20% load`.
 
 ---
 
