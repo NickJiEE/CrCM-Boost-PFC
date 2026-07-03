@@ -514,14 +514,6 @@ This was the highest measured output voltage across the final test set.
 
 ---
 
-<p align="center">
-  <img src="figures/stress_measurement_annotated.png" alt="120V / 60Hz 20% to 100% load-step Vout and Ton CMD" width="100%">
-</p>
-<p align="center">
-  <strong>Figure 10 placeholder — Component-stress measurement locations</strong><br>
-  <em>Suggested content: an annotated schematic identifying Iac, Iprecharge, Ibypass, Ibridge, iL, Isource, iBoostDiode, iCout, iCx, Iout, Vds, boost-diode voltage, and representative bridge-diode voltage.</em>
-</p>
-
 # Steady-state component stress
 
 The largest steady-state current stresses in the final matrix occurred at low line:
