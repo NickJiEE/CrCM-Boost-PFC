@@ -331,8 +331,8 @@ OVP and OCP remained inactive in the final rated-load steady-state measurement w
 
 
 <p align="center">
-  <img src="figures/120v_60hz_noload_output.png" alt="120 V 60 Hz no-load Vout" width="100%">
-  <img src="figures/240v_60hz_noload_output.png" alt="240 V 60 Hz no-load Vout" width="100%">
+  <img src="figures/120v_60hz_noload_output.png" alt="120V / 60Hz no-load Vout" width="100%">
+  <img src="figures/240v_60hz_noload_output.png" alt="240V / 60Hz no-load Vout" width="100%">
 </p>
 <p align="center">
   <em>Figure 5. No-load bus-voltage behavior at 120 V and 240 V. The bus remains bounded near 400 V; the 240 V case shows larger staircase-like energy increments during pulse-skipping startup.</em>
@@ -340,7 +340,7 @@ OVP and OCP remained inactive in the final rated-load steady-state measurement w
 
 
 <p align="center">
-  <img src="figures/240v_60hz_20pct_plots.png" alt="240 V 20% load Vout, Minimum-pulse Ton CMD, Ton Demand EN hysteresis, and Gate CMD" width="100%">
+  <img src="figures/240v_60hz_20pct_plots.png" alt="240V / 60Hz 20% load Vout, Minimum-pulse Ton CMD, Ton Demand EN hysteresis, and Gate CMD" width="100%">
 </p>
 <p align="center">
   <em>Figure 6. Minimum-pulse and demand-enable behavior at 240 V, 20% load. The requested on-time approaches the minimum region while the hysteretic demand-enable logic prevents invalid subminimum switching pulses.</em>
@@ -444,7 +444,7 @@ Startup completed:                  yes
 
 
 <p align="center">
-  <img src="figures/120v_60hz_step_plots.png" alt="120V / 60 Hz 20% to 100% load-step Vout and Ton CMD" width="100%">
+  <img src="figures/120v_60hz_step_plots.png" alt="120V / 60Hz 20% to 100% load-step Vout and Ton CMD" width="100%">
 </p>
 <p align="center">
   <em>Figure 7. 120 V, 20% → 100% load-step response. Vout exhibits a controlled undershoot and the on-time command moves from the light-load value to the full-load value.</em>
@@ -452,7 +452,7 @@ Startup completed:                  yes
 
 
 <p align="center">
-  <img src="figures/240v_60hz_step_plots.png" alt="240V / 60 Hz 100% to 20% load-step Vout and Ton CMD" width="100%">
+  <img src="figures/240v_60hz_step_plots.png" alt="240V / 60Hz 100% to 20% load-step Vout and Ton CMD" width="100%">
 </p>
 <p align="center">
   <em>Figure 8. 240 V, 100% → 20% load-step response. The output-voltage overshoot remains below the 420 V OVP threshold and returns to the regulated operating point.</em>
@@ -460,10 +460,7 @@ Startup completed:                  yes
 
 
 <p align="center">
-  <img src="figures/load_step_264V_vout.png" alt="264 V load-removal Vout" width="49%">
-  <img src="figures/load_step_264V_iL.png" alt="264 V load-removal inductor current" width="49%">
-  <img src="figures/load_step_264V_Isource.png" alt="264 V load-removal MOSFET current" width="49%">
-  <img src="figures/load_step_264V_Vds.png" alt="264 V load-removal MOSFET Vds" width="49%">
+  <img src="figures/264v_60hz_step_plots.png" alt="264V / 60Hz load-removal Vout and Ton CMD" width="100%">
 </p>
 <p align="center">
   <em>Figure 9. 264 V near-line-peak worst-case load-removal test. The measured Vout peak was 413.1815 V, leaving 6.8185 V below the OVP threshold. OVP and OCP remained inactive.</em>
@@ -517,8 +514,9 @@ This was the highest measured output voltage across the final test set.
 
 ---
 
-
-<!-- FIGURE PLACEHOLDER 10: Replace this block with an image when available. -->
+<p align="center">
+  <img src="figures/stress_measurement_annotated.png" alt="120V / 60Hz 20% to 100% load-step Vout and Ton CMD" width="100%">
+</p>
 <p align="center">
   <strong>Figure 10 placeholder — Component-stress measurement locations</strong><br>
   <em>Suggested content: an annotated schematic identifying Iac, Iprecharge, Ibypass, Ibridge, iL, Isource, iBoostDiode, iCout, iCx, Iout, Vds, boost-diode voltage, and representative bridge-diode voltage.</em>
