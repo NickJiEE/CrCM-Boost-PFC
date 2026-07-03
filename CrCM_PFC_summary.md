@@ -183,7 +183,10 @@ The measured ceiling is lower than the ideal 500 kHz because restart, edge detec
        alt="Startup Sequencing Timing"
        width="100%">
 </p>
-Startup sequencing timing plots showing correct behavior on precharging and bypassing.
+<p align="center">
+  <em>Figure 1. Startup sequencing timing plots showing correct behavior on precharging and bypassing.</em>
+</p>
+
 
 # Final startup sequence
 
@@ -289,16 +292,19 @@ OVP and OCP remained inactive in the final rated-load steady-state measurement w
        alt="90V 50Hz Input"
        width="100%">
 </p>
+<p align="center">
+  <em>Figure 2. 90V / 50Hz input showing input current matching input AC voltage's sinuosoidal shape.</em>
+</p>
 
-90V / 50Hz input showing input current matching input AC voltage's sinuosoidal shape.
 
 <p align="center">
     <img src="figures/90v_50hz_output.png"
        alt="90V 50Hz Output"
        width="100%">
 </p>
-
-90V / 50Hz output plot.
+<p align="center">
+  <em>Figure 3. 90V / 50Hz output plot.</em>
+</p>
 
 ### 264V / 60Hz Plots
 <p align="center">
@@ -306,16 +312,18 @@ OVP and OCP remained inactive in the final rated-load steady-state measurement w
        alt="264V 60Hz Input"
        width="100%">
 </p>
-
-264V / 60Hz input plot.
+<p align="center">
+  <em>Figure 4. 264V / 60Hz input plot.</em>
+</p>
 
 <p align="center">
     <img src="figures/264v_60hz_output.png"
        alt="264V 60Hz Output"
        width="100%">
 </p>
-
-264V / 60Hz output plot.
+<p align="center">
+  <em>Figure 5. 264V / 60Hz output plot.</em>
+</p>
 
 ---
 
@@ -323,8 +331,8 @@ OVP and OCP remained inactive in the final rated-load steady-state measurement w
 
 
 <p align="center">
-  <img src="figures/no_load_120V.png" alt="120 V 60 Hz no-load Vout" width="49%">
-  <img src="figures/no_load_240V.png" alt="240 V 60 Hz no-load Vout" width="49%">
+  <img src="figures/120v_60hz_noload_output.png" alt="120 V 60 Hz no-load Vout" width="100%">
+  <img src="figures/240v_60hz_noload_output.png" alt="240 V 60 Hz no-load Vout" width="100%">
 </p>
 <p align="center">
   <em>Figure 5. No-load bus-voltage behavior at 120 V and 240 V. The bus remains bounded near 400 V; the 240 V case shows larger staircase-like energy increments during pulse-skipping startup.</em>
