@@ -35,9 +35,9 @@ The reported efficiency is a **modeled efficiency**. The simulation does not ful
 ---
 
 <p align="center">
-    <img src="figures/PFC.png"
+    <img src="figures/pfc.png"
        alt="PFC"
-       width="50%">
+       width="100%">
 </p>
 
 # Final power-stage parameters
@@ -73,9 +73,9 @@ Combined full load:               8000 || 2000 = 1600 ohm
 ---
 
 <p align="center">
-    <img src="figures/PFC_controller.png"
+    <img src="figures/pfc_controller.png"
        alt="PFC Controller"
-       width="50%">
+       width="75%">
 </p>
 
 # Final controller structure
@@ -253,15 +253,21 @@ A separate `240 V, 50%` test was not required. The high-line operating range was
 ---
 
 <p align="center">
-    <img src="figures/90v_50hz_plots.png"
-       alt="90V 50Hz Plots"
-       width="50%">
+    <img src="figures/90v_50hz_input.png"
+       alt="90V 50Hz Input"
+       width="100%">
+    <img src="figures/90v_50hz_output.png"
+       alt="90V 50Hz Output"
+       width="100%">
 </p>
 
 <p align="center">
-    <img src="figures/264v_60hz_plots.png"
-       alt="264V 60Hz Plots"
-       width="50%">
+    <img src="figures/264v_60hz_input.png"
+       alt="264V 60Hz Input"
+       width="100%">
+    <img src="figures/264v_60hz_output.png"
+       alt="264V 60Hz Output"
+       width="100%">
 </p>
 
 # Rated-load steady-state validation
@@ -279,11 +285,11 @@ The final refreshed corner runs used the `4.8–5.0 s` measurement interval. Thi
 The `90 V, 50 Hz` and `264 V, 60 Hz` cases were rerun after the final controller changes. Both passed regulation, PF, efficiency, and steady-state protection checks.
 
 ```text
-Worst refreshed rated-load PF:          0.991258
+Worst refreshed rated-load PF:           0.991258
 Required PF:                             > 0.95
 Result:                                  PASS
 
-Worst refreshed rated-load efficiency:  96.171%
+Worst refreshed rated-load efficiency:   96.171%
 Required modeled efficiency:             > 92%
 Result:                                  PASS
 ```
@@ -338,7 +344,7 @@ At no load, PF and efficiency are not meaningful compliance metrics because outp
 The high-line `240 V, 20%` case is the only loaded operating point that did not meet the `PF > 0.95` target:
 
 ```text
-Measured true PF:                    0.916414
+Measured true PF:                   0.916414
 Modeled efficiency:                 95.406%
 Average Vout:                       399.983 V
 ```
@@ -650,20 +656,24 @@ Clamp-active on-time compensation was considered but not implemented.
 
 Low-line startup briefly reached the `4 A` OCP threshold. A temporary `7.5 us` startup on-time ceiling reduced startup stress. The brief controlled OCP event was accepted because startup completed normally, Vout remained below OVP, and OCP was inactive in steady state.
 
-## Issue 9: Reduced-load overvoltage and insufficient integral authority
+## Issue 9: Reduced-load overvoltage and minimum-pulse demand control
 
-A fixed `±1 us` integral limit prevented the controller from reducing on-time sufficiently at reduced load. This caused repeated operation against OVP.
+A fixed `±1 us` integral limit prevented the controller from reducing the requested on-time sufficiently at reduced load, causing repeated operation against OVP. The integral term was replaced with dynamically calculated limits so the voltage loop could request zero on-time. Hysteretic `TonDemandEnable` logic and a separate `0.2 us` minimum physical timer command were then added to prevent invalid subminimum pulses and support controlled pulse skipping at very light and no load.
 
 The final fix used:
 
 - Dynamically calculated integral limits
 - A directly saturated discrete accumulator
+- Storage of the limited integral state for anti-windup
 - Removal of the algebraic-loop-producing conditional integrator
 - A zero-lower-bound final on-time request
-- Hysteretic demand-enable logic
+- Hysteretic `TonDemandEnable` logic with `0.25 us` turn-on and `0.15 us` turn-off thresholds
 - A separate physical minimum timer command of `0.2 us`
+- Integration of `TonDemandEnable` into the restart and SR-latch SET paths, while leaving it out of the RESET path so an active pulse is not truncated
 
-The revised controller regulated 50% and 20% load correctly, avoided OVP cycling, and entered a true no-pulse state at no load.
+The revised controller regulated 50% and 20% load correctly, avoided using OVP as the normal reduced-load regulator, and entered a true no-pulse state at no load. It also restarted correctly after pulse-skipping intervals without becoming stuck on or stuck off.
+
+At `240 V, 20% load`, regulation and modeled efficiency passed, although PF remained below the target because the minimum pulse width and maximum switching-frequency clamp were both active.
 
 ---
 
