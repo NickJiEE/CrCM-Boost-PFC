@@ -181,8 +181,9 @@ The measured ceiling is lower than the ideal 500 kHz because restart, edge detec
 <p align="center">
     <img src="figures/startup_sequencing.png"
        alt="Startup Sequencing Timing"
-       width="50%">
+       width="100%">
 </p>
+Startup sequencing timing plots showing correct behavior on precharging and bypassing.
 
 # Final startup sequence
 
@@ -204,6 +205,10 @@ Startup pulse initiates the first active switching cycle
 
 0.212 s:
 Load-control logic is armed
+The load remains disconnected until Vout crosses the 370 V load-ON threshold
+
+Approximately 0.22 s in the plotted startup case:
+LoadCmd asserts and the load connects
 ```
 
 Load-connection hysteresis:
@@ -252,24 +257,6 @@ A separate `240 V, 50%` test was not required. The high-line operating range was
 
 ---
 
-<p align="center">
-    <img src="figures/90v_50hz_input.png"
-       alt="90V 50Hz Input"
-       width="100%">
-    <img src="figures/90v_50hz_output.png"
-       alt="90V 50Hz Output"
-       width="100%">
-</p>
-
-<p align="center">
-    <img src="figures/264v_60hz_input.png"
-       alt="264V 60Hz Input"
-       width="100%">
-    <img src="figures/264v_60hz_output.png"
-       alt="264V 60Hz Output"
-       width="100%">
-</p>
-
 # Rated-load steady-state validation
 
 The final refreshed corner runs used the `4.8–5.0 s` measurement interval. This contains 10 complete line cycles at 50 Hz and 12 complete line cycles at 60 Hz.
@@ -295,6 +282,40 @@ Result:                                  PASS
 ```
 
 OVP and OCP remained inactive in the final rated-load steady-state measurement windows.
+
+### 90V / 50Hz Plots
+<p align="center">
+    <img src="figures/90v_50hz_input.png"
+       alt="90V 50Hz Input"
+       width="100%">
+</p>
+
+90V / 50Hz input showing input current matching input AC voltage's sinuosoidal shape.
+
+<p align="center">
+    <img src="figures/90v_50hz_output.png"
+       alt="90V 50Hz Output"
+       width="100%">
+</p>
+
+90V / 50Hz output plot.
+
+### 264V / 60Hz Plots
+<p align="center">
+    <img src="figures/264v_60hz_input.png"
+       alt="264V 60Hz Input"
+       width="100%">
+</p>
+
+264V / 60Hz input plot.
+
+<p align="center">
+    <img src="figures/264v_60hz_output.png"
+       alt="264V 60Hz Output"
+       width="100%">
+</p>
+
+264V / 60Hz output plot.
 
 ---
 
