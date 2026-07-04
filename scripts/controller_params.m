@@ -45,8 +45,6 @@ Vin_ff_min    = 80;          % prevents division by a very small value
 Vin_ff_max    = 280;
 
 % Frequency clamp
-Ts_ctrl = 100e-9;
-
 Fsw_max = 500e3;
 Tcycle_min = 1/Fsw_max;
 
