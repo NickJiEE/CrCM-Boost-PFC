@@ -692,6 +692,86 @@ At `240 V, 20% load`, regulation and modeled efficiency passed, although PF rema
 
 ---
 
+
+# Embedded code generation and STM32 targeting
+
+The controller logic was separated from the Simscape power stage into a discrete, controller-only referenced model:
+
+```text
+pfc_controller_codegen.slx
+```
+
+The code-generation model contains the control, timing, filtering, and protection logic without the electrical plant or Simscape physical network. Its root interface is:
+
+```text
+Inputs:
+iL
+Vout
+Vac
+
+Outputs:
+GateCmd
+Vout Filtered
+```
+
+Embedded Coder was used to generate C code from this model. The controller uses a fixed-step discrete configuration with a `100 ns` base sample time and a `100 us` voltage-loop sample time. The generated code uses a single-tasking scheduler, with the slower voltage-loop operations executed as an integer subrate of the fast controller step.
+
+Software-in-the-loop verification was performed by comparing normal Simulink execution against the compiled generated C implementation. The logged gate-command, filtered-voltage, timing, and protection signals matched for the tested inputs.
+
+<!-- Figure placeholder:
+<p align="center">
+  <img src="figures/codegen_model_reference.png"
+       alt="Controller-only referenced model used for Embedded Coder generation"
+       width="90%">
+</p>
+<p align="center">
+  <em>Controller-only referenced model used for Embedded Coder generation.</em>
+</p>
+-->
+
+<!-- Figure placeholder:
+<p align="center">
+  <img src="figures/sil_signal_comparison.png"
+       alt="Normal simulation and SIL signal comparison"
+       width="100%">
+</p>
+<p align="center">
+  <em>Representative normal-simulation and SIL comparison showing matching controller signals.</em>
+</p>
+-->
+
+A separate hardware wrapper was created for STM32 deployment:
+
+```text
+pfc_controller_stm32.slx
+```
+
+The wrapper references the verified controller model and was configured for:
+
+```text
+Target family:        STM32G4
+Hardware profile:     NUCLEO-G474RE
+Compiler:             GNU Tools for ARM Embedded Processors
+Configuration tool:   STM32CubeMX
+Build action:         Build only
+```
+
+The STM32 cross-build completed successfully and produced:
+
+```text
+pfc_controller_stm32.elf
+pfc_controller_stm32.hex
+pfc_controller_stm32.bin
+```
+
+This verifies code generation, ARM cross-compilation, and linking for the selected STM32 target. Physical deployment has not yet been performed. The current hardware wrapper also does not yet contain the final ADC, comparator, HRTIM, ZCD, current-limit, or gate-driver peripheral integration.
+
+The existing `100 ns` fast controller step is suitable as a simulation timing model, but it is not expected to execute as a complete software loop on the STM32 CPU. A practical hardware implementation will move switching-edge generation, zero-current detection, and fast protection into STM32 HRTIM/comparator hardware while retaining slower control calculations in generated software.
+
+See [Embedded code generation and STM32 implementation](CrCM_PFC_Embedded_Code_Generation.md) for the detailed workflow, verification results, generated artifacts, and remaining hardware-integration work.
+
+---
+
 # Known limitations and interpretation
 
 ## High-line light-load PF
@@ -774,4 +854,4 @@ Known exception:
 PF = 0.916414 at 240 V, 20% load
 ```
 
-The final simulation demonstrates stable universal-input operation, regulated 400 V output, compliant rated-load PF and modeled efficiency, controlled startup, safe no-load behavior, and stable response to large load transitions. The controller is considered frozen for the current simulation scope.
+The final simulation demonstrates stable universal-input operation, regulated 400 V output, compliant rated-load PF and modeled efficiency, controlled startup, safe no-load behavior, and stable response to large load transitions. The controller is considered frozen for the current simulation scope. Its generated C implementation has passed SIL equivalence testing and has also been cross-compiled successfully for the selected STM32G4 target; physical peripheral integration and hardware validation remain future work.
