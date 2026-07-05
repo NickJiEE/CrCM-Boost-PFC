@@ -251,7 +251,7 @@ All models participating in the model-reference hierarchy were configured with c
 <p align="center">
   <img src="figures/stm32_hardware_configuration.png"
        alt="STM32G4 hardware implementation configuration"
-       width="100%">
+       width="85%">
 </p>
 <p align="center">
   <em>STM32G4 hardware and GNU Arm toolchain configuration.</em>
