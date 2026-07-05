@@ -40,6 +40,7 @@ The converter operates in critical conduction mode, also called transition mode 
 - Hysteretic output overvoltage protection
 - Precharge, bypass, controller-startup, and load-connect sequencing
 - Verified startup, full-load, reduced-load, no-load, and load-step operation
+- Embedded Coder C generation, SIL equivalence testing, and STM32G4 cross-compilation
 
 ---
 
@@ -84,6 +85,34 @@ Reported efficiencies are simulation-based and do not represent guaranteed hardw
 
 ---
 
+## Embedded code generation
+
+The controller logic was separated from the Simscape power stage into a discrete controller-only model:
+
+```text
+pfc_controller_codegen.slx
+```
+
+Embedded Coder was used to generate C code from this model. Software-in-the-loop testing was then performed to compare the generated C implementation against the Simulink controller. Logged gate-command, filtered-voltage, timing, and protection signals matched between normal simulation and SIL execution.
+
+A separate STM32 deployment wrapper was also created:
+
+```text
+pfc_controller_stm32.slx
+```
+
+The wrapper was configured for an STM32G4 target using the `NUCLEO-G474RE` hardware profile, STM32CubeMX project configuration, and GNU Arm toolchain. The project successfully cross-compiled and produced STM32 firmware artifacts:
+
+```text
+pfc_controller_stm32.elf
+pfc_controller_stm32.hex
+pfc_controller_stm32.bin
+```
+
+This currently represents successful build-only target verification. The firmware has not yet been deployed to physical hardware, and STM32 ADC, comparator, HRTIM, and gate-driver integration remain future work.
+
+---
+
 ## Documentation
 
 - [Detailed project summary](CrCM_PFC_summary.md)
@@ -93,6 +122,8 @@ Reported efficiencies are simulation-based and do not represent guaranteed hardw
 
 ## Project status
 
-The controller is considered complete for the current simulation scope.
+The converter and controller are complete for the current simulation scope.
 
-Future work includes hardware device selection, magnetic design, thermal analysis, switching-loss estimation, EMI validation, and component-tolerance analysis.
+The controller has been converted to generated C using Embedded Coder and verified through software-in-the-loop testing. An STM32G4 deployment model has also been configured and successfully cross-compiled for the `NUCLEO-G474RE`, producing ELF, HEX, and BIN firmware outputs.
+
+Physical STM32 deployment and hardware validation have not yet been performed. Remaining work includes STM32 ADC and HRTIM integration, hardware ZCD and protection implementation, execution-time profiling, hardware device selection, magnetic design, thermal analysis, switching-loss estimation, EMI validation, and component-tolerance analysis.
