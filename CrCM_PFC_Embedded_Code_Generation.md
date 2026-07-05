@@ -153,16 +153,14 @@ pfc_controller_codegen.h
 
 The generated model also contains internal signal and state structures for filters, delays, counters, latches, and multirate scheduling.
 
-<!-- Figure placeholder:
 <p align="center">
-  <img src="figures/codegen_generated_code_report.png"
-       alt="Embedded Coder generated-code report"
-       width="100%">
+  <img src="figures/codegen_report_summary.png"
+       alt="Embedded Coder report summary for the controller model"
+       width="85%">
 </p>
 <p align="center">
-  <em>Embedded Coder report showing the generated controller source and model interface.</em>
+  <em>Embedded Coder report summary for the controller-only model, showing the ERT target, single-tasking configuration, host architecture, and generated-source location.</em>
 </p>
--->
 
 ---
 
@@ -193,7 +191,7 @@ The SIL result verifies numerical equivalence between `pfc_controller_codegen.sl
 <p align="center">
   <img src="figures/sil_signal_comparison.png"
        alt="Simulation Data Inspector comparison between normal simulation and SIL"
-       width="100%">
+       width="50%">
 </p>
 <p align="center">
   <em>Representative comparison showing matching normal-simulation and SIL controller signals.</em>
@@ -259,16 +257,14 @@ All models participating in the model-reference hierarchy were configured with c
   <em>STM32G4 hardware and GNU Arm toolchain configuration.</em>
 </p>
 
-<!-- Figure placeholder:
 <p align="center">
   <img src="figures/stm32_cubemx_project.png"
        alt="STM32CubeMX NUCLEO-G474RE project"
        width="100%">
 </p>
 <p align="center">
-  <em>STM32CubeMX project associated with the deployment model.</em>
+  <em>STM32CubeMX project for the NUCLEO-G474RE target used during the initial build-only firmware verification.</em>
 </p>
--->
 
 ---
 
