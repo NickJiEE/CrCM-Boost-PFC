@@ -156,7 +156,7 @@ The generated model also contains internal signal and state structures for filte
 <p align="center">
   <img src="figures/codegen_report_summary.png"
        alt="Embedded Coder report summary for the controller model"
-       width="85%">
+       width="75%">
 </p>
 <p align="center">
   <em>Embedded Coder report summary for the controller-only model, showing the ERT target, single-tasking configuration, host architecture, and generated-source location.</em>
