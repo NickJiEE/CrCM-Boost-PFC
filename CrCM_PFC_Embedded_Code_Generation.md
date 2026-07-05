@@ -34,17 +34,6 @@ pfc_g474.ioc
 
 This structure keeps the controller algorithm independent of the physical-network model and avoids placing Simscape or electrical blocks in the code-generation component.
 
-<!-- Figure placeholder:
-<p align="center">
-  <img src="figures/codegen_model_hierarchy.png"
-       alt="PFC simulation, controller code-generation model, and STM32 wrapper hierarchy"
-       width="100%">
-</p>
-<p align="center">
-  <em>Model hierarchy separating the electrical plant, controller algorithm, and STM32 wrapper.</em>
-</p>
--->
-
 ---
 
 ## Controller-only code-generation model
@@ -75,16 +64,14 @@ The internal controller is organized around:
 
 The model contains only discrete Simulink logic. Simscape electrical elements and physical signals remain in the original PFC simulation model.
 
-<!-- Figure placeholder:
 <p align="center">
-  <img src="figures/codegen_controller_model.png"
+  <img src="figures/pfc_controller_codegen.png"
        alt="Controller-only Simulink model"
        width="100%">
 </p>
 <p align="center">
   <em>Controller-only model containing feedforward, voltage-loop, and CrCM timing logic.</em>
 </p>
--->
 
 ---
 
@@ -110,17 +97,6 @@ Tasking mode:                      Single-tasking
 The generated scheduler calls the fast controller logic at the base rate and executes the voltage-loop subrate once every 1000 base steps.
 
 A maximum requested switching frequency of `500 kHz` corresponds to a nominal minimum cycle period of `2 us`, or 20 fast-controller samples. The measured switching-frequency ceiling in the final simulation was approximately `476.190 kHz` because of sampled restart and edge-detection timing.
-
-<!-- Figure placeholder:
-<p align="center">
-  <img src="figures/codegen_sample_times.png"
-       alt="Compiled sample-time visualization for the controller model"
-       width="100%">
-</p>
-<p align="center">
-  <em>Fast and slow sample-time regions in the controller-only model.</em>
-</p>
--->
 
 ---
 
@@ -214,7 +190,6 @@ An initial comparison showed `Vout Filtered` remaining at zero because the stand
 
 The SIL result verifies numerical equivalence between `pfc_controller_codegen.slx` and the generated C implementation for the exercised input data. It does not verify real-time execution deadlines, STM32 peripheral behavior, or analog measurement accuracy.
 
-<!-- Figure placeholder:
 <p align="center">
   <img src="figures/sil_signal_comparison.png"
        alt="Simulation Data Inspector comparison between normal simulation and SIL"
@@ -223,7 +198,6 @@ The SIL result verifies numerical equivalence between `pfc_controller_codegen.sl
 <p align="center">
   <em>Representative comparison showing matching normal-simulation and SIL controller signals.</em>
 </p>
--->
 
 ---
 
@@ -247,16 +221,14 @@ These top-level ports currently represent software interfaces only. They have no
 
 Separate host/SIL and STM32 deployment configurations were maintained so the same controller algorithm could be tested on the host and cross-compiled for the embedded target.
 
-<!-- Figure placeholder:
 <p align="center">
-  <img src="figures/stm32_wrapper_model.png"
+  <img src="figures/pfc_controller_stm32.png"
        alt="STM32 wrapper referencing the controller code-generation model"
        width="100%">
 </p>
 <p align="center">
   <em>STM32 deployment wrapper containing the controller Model block.</em>
 </p>
--->
 
 ---
 
@@ -278,7 +250,6 @@ Build action:                       Build only
 
 All models participating in the model-reference hierarchy were configured with compatible target, toolchain, tasking, and CubeMX settings.
 
-<!-- Figure placeholder:
 <p align="center">
   <img src="figures/stm32_hardware_configuration.png"
        alt="STM32G4 hardware implementation configuration"
@@ -287,7 +258,6 @@ All models participating in the model-reference hierarchy were configured with c
 <p align="center">
   <em>STM32G4 hardware and GNU Arm toolchain configuration.</em>
 </p>
--->
 
 <!-- Figure placeholder:
 <p align="center">
@@ -326,17 +296,6 @@ pfc_controller_stm32.zip
 ```
 
 The source archive is useful for inspection, relocation, or later integration into an STM32 development workflow. Generated build folders and cache files are reproducible and do not need to be committed to the main source repository.
-
-<!-- Figure placeholder:
-<p align="center">
-  <img src="figures/stm32_build_success.png"
-       alt="Successful STM32 firmware build output"
-       width="100%">
-</p>
-<p align="center">
-  <em>Successful GNU Arm cross-build and firmware-artifact generation.</em>
-</p>
--->
 
 ---
 
@@ -470,21 +429,6 @@ slprj/
 ```
 
 They are useful locally but should normally be excluded from the primary Git repository.
-
----
-
-## Recommended next steps
-
-1. Obtain and connect a `NUCLEO-G474RE`.
-2. Verify basic deployment with a safe GPIO test.
-3. Configure and verify a fixed HRTIM output on an oscilloscope.
-4. Configure one ADC input and validate the raw and scaled measurements.
-5. Refactor the controller to output `Ton_cmd`, enable, and protection commands instead of generating every gate edge in software.
-6. Route ZCD and cycle-by-cycle current limiting through comparator and HRTIM hardware.
-7. Repeat SIL testing after each controller refactor.
-8. Run PIL and execution-time profiling on the STM32.
-9. Validate the controller on an isolated low-voltage converter.
-10. Proceed to the high-voltage PFC stage only after timing, protection, and safe-state behavior are confirmed.
 
 ---
 
